@@ -138,8 +138,8 @@
 
 - name: PostgreSQL | Update configuration - pt. 1 (pg_hba.conf)
   template:
-    src: pg_hba.conf.j2
-    dest: "{{postgresql_conf_directory}}/pg_hba.conf"
+    src: "{{ postgresql_hba_src }}"
+    dest: "{{ postgresql_conf_directory }}/pg_hba.conf"
     owner: "{{ postgresql_service_user }}"
     group: "{{ postgresql_service_group }}"
     mode: 0640
@@ -148,9 +148,9 @@
 
 - name: PostgreSQL | Update configuration - pt. 2 (postgresql.conf)
   template:
-    src: "postgresql.conf-{{ postgresql_version }}.j2"
+    src: "{{ postgresql_conf_src }}"
     # if using pgtune, save the template to ".untuned"
-    dest: "{{postgresql_conf_directory}}/postgresql.conf{% if postgresql_pgtune %}.untuned{% endif %}"
+    dest: "{{ postgresql_conf_directory }}/postgresql.conf{% if postgresql_pgtune %}.untuned{% endif %}"
     owner: "{{ postgresql_service_user }}"
     group: "{{ postgresql_service_group }}"
     mode: 0640
