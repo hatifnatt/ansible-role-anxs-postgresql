@@ -24,6 +24,8 @@
     state: directory
     mode: 0700
   with_items: "{{ postgresql_tablespaces_dirs }}"
+  when: postgresql_tablespaces_dirs is defined
+        and postgresql_tablespaces_dirs
 
 - name: PostgreSQL | Make sure the postgres WAL directory exists
   file:
@@ -43,7 +45,8 @@
     state: directory
     mode: 0700
   register: pglog_dir_exist
-  when: postgresql_log_directory != "pg_log" or postgresql_log_directory != "log"
+  when: postgresql_log_directory is defined
+        and (postgresql_log_directory != "pg_log" or postgresql_log_directory != "log")
 
 - name: PostgreSQL | Ensure the locale for lc_collate and lc_ctype is generated | Debian
   become: yes
