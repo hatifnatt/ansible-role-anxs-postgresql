@@ -29,6 +29,11 @@ postgresql_service_user: "{{ postgresql_admin_user }}"
 postgresql_service_user_pgsql_profile: false
 postgresql_service_group: "{{ postgresql_admin_user }}"
 
+# By default postgresql service will be only reloaded
+# NB! Some configuration changes can be applied only during restart
+# possible values: reloaded, restarted
+postgresql_service_restart_action: reloaded
+
 postgresql_cluster_name: "main" # postgres default is ''
 postgresql_cluster_reset: false
 
